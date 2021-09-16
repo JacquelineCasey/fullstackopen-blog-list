@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Tests not yet configured\"; return 1",
+    "test": "echo \"Tests not yet configured\" && exit 1",
     "lint": "./node_modules/.bin/eslint .",
     "dev": "./node_modules/.bin/nodemon index.js"
   },
