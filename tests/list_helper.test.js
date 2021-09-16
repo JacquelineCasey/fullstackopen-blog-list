@@ -124,7 +124,7 @@ describe('favorite blog', () => {
 });
 
 describe('most blogs', () => {
-    test('of list empty list is {author: null, blogs: 0}', () => {
+    test('of empty list is {author: null, blogs: 0}', () => {
         expect(listHelper.mostBlogs([]))
             .toEqual({author: null, blogs: 0});
     });
@@ -132,5 +132,17 @@ describe('most blogs', () => {
     test('of list with many blogs is computed correctly', () => {
         expect(listHelper.mostBlogs(listWithManyBlogs))
             .toEqual({author: 'Robert C. Martin', blogs: 3});
+    });
+});
+
+describe('most likes', () => {
+    test('of empty list is {author: null, blogs: 0}', () => {
+        expect(listHelper.mostLikes([]))
+            .toEqual({author: null, likes: 0});
+    });
+
+    test('of list with many blogs is computed correctly', () => {
+        expect(listHelper.mostLikes(listWithManyBlogs))
+            .toEqual({author: 'Edsger W. Dijkstra', likes: 17});
     });
 });

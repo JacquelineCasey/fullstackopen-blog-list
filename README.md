@@ -13,3 +13,4 @@ The project is involved in the following exercises:
 - 4.5: Write and test `favoriteBlog()`, which returns the favorite blog.
   - When comparing objects, `toEqual()` is better than `toBe()`, which only comparse values (address / reference).
 - 4.6: Write and test `mostBlogs`. This is a good time to try out the `Lodash` library.
+- 4.7: Write and test `mostLikes`.
