@@ -8,3 +8,4 @@ This project is related to this part of the course: https://fullstackopen.com/en
 The project is involved in the following exercises:
 - 4.1: Expand a given application body into a fully working npm project.
 - 4.2: Refactor the project into modules, as we did [here](https://fullstackopen.com/en/part4/structure_of_backend_application_introduction_to_testing#project-structure).
+- 4.3: Add a `dummy` function to `utils/list_helper.js`, and setup the testing system.
