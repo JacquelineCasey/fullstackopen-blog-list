@@ -10,7 +10,9 @@ const totalLikes = (blogs) => {
 };
 
 const favoriteBlog = (blogs) => {
-
+    if (blogs.length === 0) return null;
+    return blogs.reduce((previousBest, next) =>
+        (previousBest.likes > next.likes) ? previousBest : next);
 };
 
 
