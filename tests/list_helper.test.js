@@ -124,8 +124,9 @@ describe('favorite blog', () => {
 });
 
 describe('most blogs', () => {
-    test('of list empty list is null', () => {
-        expect(listHelper.mostBlogs([])).toBeNull();
+    test('of list empty list is {author: null, blogs: 0}', () => {
+        expect(listHelper.mostBlogs([]))
+            .toEqual({author: null, blogs: 0});
     });
 
     test('of list with many blogs is computed correctly', () => {

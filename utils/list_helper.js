@@ -17,14 +17,12 @@ const favoriteBlog = (blogs) => {
 };
 
 const mostBlogs = (blogList) => {
-    if (blogList.length === 0) return null;
-
     const [author, blogs] = _
         .chain(blogList)
-        .groupBy((b) => b.author)
-        .mapValues((b_arr) => b_arr.length)
+        .groupBy((blog) => blog.author)
+        .mapValues((blog_arr) => blog_arr.length)
         .toPairs()
-        .reduce((previousMost, next) => previousMost[1] > next[1] ? previousMost : next)
+        .reduce((a, b) => a[1] > b[1] ? a : b, [null, 0])
         .value();
 
     return {author, blogs};
@@ -44,7 +42,6 @@ const mostBlogs = (blogList) => {
      *   value (a tuple / array).
      *
      * Finally, we destructure this array-tuple and return it as an object. */
-
 };
 
 module.exports = {
