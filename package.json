@@ -1,0 +1,32 @@
+{
+  "name": "blog-list",
+  "version": "1.0.0",
+  "description": "Allows users to save and vote on blogs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Tests not yet configured\"; return 1",
+    "lint": "./node_modules/.bin/eslint .",
+    "dev": "./node_modules/.bin/nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jackcasey067/fullstackopen-blog-list.git"
+  },
+  "author": "Jack Casey",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jackcasey067/fullstackopen-blog-list/issues"
+  },
+  "homepage": "https://github.com/jackcasey067/fullstackopen-blog-list#readme",
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "nodemon": "^2.0.12"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "http": "^0.0.1-security",
+    "mongoose": "^6.0.6"
+  }
+}
