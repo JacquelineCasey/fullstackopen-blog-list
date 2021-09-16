@@ -1,4 +1,5 @@
 
+const _ = require('lodash'); // Lodash recommends use '_' as the library object.
 
 // eslint-disable-next-line no-unused-vars
 const dummy = (blogs) => {
@@ -15,9 +16,40 @@ const favoriteBlog = (blogs) => {
         (previousBest.likes > next.likes) ? previousBest : next);
 };
 
+const mostBlogs = (blogList) => {
+    if (blogList.length === 0) return null;
+
+    const [author, blogs] = _
+        .chain(blogList)
+        .groupBy((b) => b.author)
+        .mapValues((b_arr) => b_arr.length)
+        .toPairs()
+        .reduce((previousMost, next) => previousMost[1] > next[1] ? previousMost : next)
+        .value();
+
+    return {author, blogs};
+
+    /* Solution explained:
+     * - To avoid dealing with nesting, or passing around state, we use _.chain(),
+     *   which wraps the value into a lodash object that can call functions we
+     *   would normally need _ for.
+     * - We group blogs by the author field. We now have an object that
+     *   maps authors to arrays of their blogs.
+     * - We map the values of that object to their lengths. We have an object that
+     *   maps authors to their number of blogs.
+     * - We use toPairs() to generate an array of key-value tuples (arrays: [author, blog])
+     * - This is standard javascript reduce, bringing us to one author with the
+     *   most posts.
+     * - We unwrap the lodash object, bringing us back to a standard javascript
+     *   value (a tuple / array).
+     *
+     * Finally, we destructure this array-tuple and return it as an object. */
+
+};
 
 module.exports = {
     dummy,
     totalLikes,
-    favoriteBlog
+    favoriteBlog,
+    mostBlogs
 };
