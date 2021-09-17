@@ -93,7 +93,7 @@ describe('POST /', () => {
         await api.post('/api/blogs').send(blogToSendNoTitle)
             .expect(400);
 
-        const blogs = helper.databaseAllBlogs();
+        const blogs = await helper.databaseAllBlogs();
         expect(blogs).toHaveLength(helper.initialBlogs.length);
     });
 
@@ -101,7 +101,7 @@ describe('POST /', () => {
         await api.post('/api/blogs').send(blogToSendNoUrl)
             .expect(400);
 
-        const blogs = helper.databaseAllBlogs();
+        const blogs = await helper.databaseAllBlogs();
         expect(blogs).toHaveLength(helper.initialBlogs.length);
     });
 });
