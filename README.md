@@ -14,3 +14,4 @@ The project is involved in the following exercises:
   - When comparing objects, `toEqual()` is better than `toBe()`, which only comparse values (address / reference).
 - 4.6: Write and test `mostBlogs`. This is a good time to try out the `Lodash` library.
 - 4.7: Write and test `mostLikes`.
+- 4.8: Write tests for the `GET api/blogs`. Then make it use async await.
