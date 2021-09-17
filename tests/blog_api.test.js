@@ -19,7 +19,7 @@ beforeEach(async () => {
 
 
 describe('GET /', () => {
-    test('all notes are returned as json', async () => {
+    test('all notes are returned as json with 200', async () => {
         const response = await api
             .get('/api/blogs')
             .expect(200)
@@ -29,12 +29,42 @@ describe('GET /', () => {
     });
 
     test('returned notes have "id" property instead of "_id"', async () => {
-        const blogs = await helper.databaseAllBlogsJSON();
+        const blogs = await helper.databaseAllBlogs();
 
         blogs.forEach(blog => {
             expect(blog._id).toBeUndefined();
             expect(blog.id).toBeDefined();
         });
+    });
+});
+
+describe('POST /', () => {
+    const blogToSend = {
+        title: 'new blog title',
+        author: 'new blog author',
+        url: 'new blog string',
+        likes: 0
+    };
+
+    test('the database returns the sent note', async () => {
+        const response = await api
+            .post('/api/blogs')
+            .send(blogToSend)
+            .expect(201)
+            .expect('Content-Type', /application\/json/);
+
+        expect(response.body).toMatchObject(blogToSend); // Can have extra properties (id)
+    });
+
+    test('the database has one more note after', async () => {
+        await api
+            .post('/api/blogs')
+            .send(blogToSend)
+            .expect(201)
+            .expect('Content-Type', /application\/json/);
+
+        const blogs = await helper.databaseAllBlogs();
+        expect(blogs.length).toBe(helper.initialBlogs.length + 1);
     });
 });
 

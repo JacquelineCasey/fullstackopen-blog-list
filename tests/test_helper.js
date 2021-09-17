@@ -53,13 +53,13 @@ const initialBlogs = [
     }
 ];
 
-const databaseAllBlogsJSON = async () => {
+const databaseAllBlogs = async () => {
     const response = await Blog.find({});
     return response.map(blog => blog.toJSON());
 };
 
 
 module.exports = {
-    databaseAllBlogsJSON,
+    databaseAllBlogs,
     initialBlogs
 };
