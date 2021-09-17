@@ -21,3 +21,8 @@ The project is involved in the following exercises:
 - 4.11: Write a test that checks that if the likes property is missing, it is set to zero.
         Make this behavior happen. 
 - 4.12: Write a test that ensures that 400 is sent if either `title` or `url` are missing.
+
+## Playing with continuous integration
+
+My first big mistake was assuming github could connect to the database, when in
+reality it does not have the URI. It is possible to add it in settings. (encrypted)
