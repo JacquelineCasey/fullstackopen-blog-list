@@ -24,14 +24,15 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+        
+      # Runs a single command using the runners shell
+      - name: Setup
+        uses: actions/setup-node@v1
         with:
           node-version: '14.x'
-
-      # Runs a single command using the runners shell
-      - name: Build using npm
-        run: npm ci
-      # Runs a single command using the runners shell
-      - name: Test using Jest
+      - name: Build
+      - run: npm ci
+      - name: Test
         run: npm test
       
 
