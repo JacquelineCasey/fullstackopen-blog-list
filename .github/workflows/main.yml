@@ -32,6 +32,8 @@ jobs:
           node-version: '14.x'
       - name: Build
         run: npm ci
+      - name: Lint
+        run: npm run lint
       - name: Test
         env:
           TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }} # (*** add environment variables to the process)
