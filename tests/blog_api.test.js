@@ -7,6 +7,8 @@ const Blog = require('../models/blog');
 const helper = require('./test_helper');
 
 
+const api = supertest(app);
+
 beforeEach(async () => {
     await Blog.deleteMany({});
 
@@ -15,7 +17,6 @@ beforeEach(async () => {
     );
 });
 
-const api = supertest(app);
 
 describe('GET /', () => {
     test('all notes are returned as json', async () => {
@@ -27,6 +28,7 @@ describe('GET /', () => {
         expect(response.body).toHaveLength(helper.initialBlogs.length);
     });
 });
+
 
 afterAll(() => {
     mongoose.connection.close();
