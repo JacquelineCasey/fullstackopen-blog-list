@@ -1,4 +1,5 @@
 
+const { forEach } = require('lodash');
 const mongoose = require('mongoose');
 const supertest = require('supertest');
 
@@ -26,6 +27,15 @@ describe('GET /', () => {
             .expect('Content-Type', /application\/json/);
 
         expect(response.body).toHaveLength(helper.initialBlogs.length);
+    });
+
+    test('returned notes have "id" property instead of "_id"', async () => {
+        const blogs = await helper.databaseAllBlogsJSON();
+
+        forEach(blogs, blog => {
+            expect(blog._id).toBeUndefined();
+            expect(blog.id).toBeDefined();
+        });
     });
 });
 

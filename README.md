@@ -15,3 +15,5 @@ The project is involved in the following exercises:
 - 4.6: Write and test `mostBlogs`. This is a good time to try out the `Lodash` library.
 - 4.7: Write and test `mostLikes`.
 - 4.8: Write tests for the `GET api/blogs`. Then make it use async await.
+- 4.9: Make sure (through testing) that `GET api/blogs` returns objects with a
+       `id` property, instead of `_id`.
