@@ -35,3 +35,5 @@ errors from Mongoose. After I fixed those, I removed the fix here.
 Setting up a github environment seemed not to work, but the current system
 does work. See the current `main.yml` file. Also, maybe quotes were getting in
 the way, so I eventually took them out.
+- github does use the same uri as we do, so try not to run tests locally at the
+  same time. I could change it on github in the future.
