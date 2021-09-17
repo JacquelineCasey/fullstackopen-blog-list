@@ -1,5 +1,4 @@
 
-const { forEach } = require('lodash');
 const mongoose = require('mongoose');
 const supertest = require('supertest');
 
@@ -32,7 +31,7 @@ describe('GET /', () => {
     test('returned notes have "id" property instead of "_id"', async () => {
         const blogs = await helper.databaseAllBlogsJSON();
 
-        forEach(blogs, blog => {
+        blogs.forEach(blog => {
             expect(blog._id).toBeUndefined();
             expect(blog.id).toBeDefined();
         });
