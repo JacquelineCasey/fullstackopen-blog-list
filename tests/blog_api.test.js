@@ -46,7 +46,13 @@ describe('POST /', () => {
         likes: 0
     };
 
-    test('the database returns the sent note', async () => {
+    const blogToSendNoLikes = {
+        title: 'No likes',
+        author: 'somebody',
+        url: 'htpp://userForgotToSendLikesProperty/weWillForgiveHimAnyway.com'
+    };
+
+    test('the database returns the sent note as JSON', async () => {
         const response = await api
             .post('/api/blogs')
             .send(blogToSend)
@@ -57,14 +63,18 @@ describe('POST /', () => {
     });
 
     test('the database has one more note after', async () => {
-        await api
-            .post('/api/blogs')
-            .send(blogToSend)
-            .expect(201)
-            .expect('Content-Type', /application\/json/);
+        await api.post('/api/blogs').send(blogToSend);
 
         const blogs = await helper.databaseAllBlogs();
         expect(blogs.length).toBe(helper.initialBlogs.length + 1);
+    });
+
+    test('missing likes property is replaced with 0', async () => {
+        await api.post('/api/blogs').send(blogToSendNoLikes);
+
+        const blogs = await helper.databaseAllBlogs();
+        expect(blogs.find(b => b.title === blogToSendNoLikes.title))
+            .toMatchObject({likes: 0});
     });
 });
 

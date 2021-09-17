@@ -17,4 +17,6 @@ The project is involved in the following exercises:
 - 4.8: Write test(s) for `GET api/blogs`. Then make it use async await.
 - 4.9: Make sure (through testing) that `GET api/blogs` returns objects with a
        `id` property, instead of `_id`.
-- 4.10: Write test(s) for `POST api/blogs`. Then make it use async await. 
+- 4.10: Write test(s) for `POST api/blogs`. Then make it use async await.
+- 4.11: Write a test that checks that if the likes property is missing, it is set to zero.
+        Make this behavior happen. 
