@@ -20,3 +20,4 @@ The project is involved in the following exercises:
 - 4.10: Write test(s) for `POST api/blogs`. Then make it use async await.
 - 4.11: Write a test that checks that if the likes property is missing, it is set to zero.
         Make this behavior happen. 
+- 4.12: Write a test that ensures that 400 is sent if either `title` or `url` are missing.

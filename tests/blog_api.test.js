@@ -52,6 +52,18 @@ describe('POST /', () => {
         url: 'htpp://userForgotToSendLikesProperty/weWillForgiveHimAnyway.com'
     };
 
+    const blogToSendNoTitle = {
+        author: 'Guy who forgot to title his work',
+        url: 'http://oops.com',
+        likes: 0
+    };
+
+    const blogToSendNoUrl = {
+        title: 'This is a Book',
+        author: 'book author',
+        likes: 100
+    };
+
     test('the database returns the sent note as JSON', async () => {
         const response = await api
             .post('/api/blogs')
@@ -75,6 +87,22 @@ describe('POST /', () => {
         const blogs = await helper.databaseAllBlogs();
         expect(blogs.find(b => b.title === blogToSendNoLikes.title))
             .toMatchObject({likes: 0});
+    });
+
+    test('missing title property causes 400 error code', async () => {
+        await api.post('/api/blogs').send(blogToSendNoTitle)
+            .expect(400);
+
+        const blogs = helper.databaseAllBlogs();
+        expect(blogs).toHaveLength(helper.initialBlogs.length);
+    });
+
+    test('missing url property causes 400 error code', async () => {
+        await api.post('/api/blogs').send(blogToSendNoUrl)
+            .expect(400);
+
+        const blogs = helper.databaseAllBlogs();
+        expect(blogs).toHaveLength(helper.initialBlogs.length);
     });
 });
 
