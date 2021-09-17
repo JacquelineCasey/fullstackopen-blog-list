@@ -34,9 +34,7 @@ jobs:
         run: npm ci
       - name: Test
         env:
-          SECRET: ${{ secrets.SECRET }}
-        run: |
-          echo $SECRET
-          npm test
+          TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }} # (*** add environment variables to the process)
+        run: npm test
       
 
