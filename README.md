@@ -29,5 +29,5 @@ reality it does not have the URI. It is possible to add it in settings, under
 environments.
 
 Jest gave weird errors, so I followed the advice here, which revealed the true
-errors from Mongoose.
+errors from Mongoose. 
 (https://github.com/facebook/jest/issues/11607)
