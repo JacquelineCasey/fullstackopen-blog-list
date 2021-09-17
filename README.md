@@ -29,5 +29,9 @@ reality it does not have the URI. It is possible to add it in settings, under
 environments.
 
 Jest gave weird errors, so I followed the advice here, which revealed the true
-errors from Mongoose. 
+errors from Mongoose. After I fixed those, I removed the fix here.
 (https://github.com/facebook/jest/issues/11607)
+
+Setting up a github environment seemed not to work, but the current system
+does work. See the current `main.yml` file. Also, maybe quotes were getting in
+the way, so I eventually took them out.
