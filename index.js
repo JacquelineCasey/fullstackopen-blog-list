@@ -1,6 +1,5 @@
 
-const http = require('http');
-
+const http = require('http'); // Apparently this is node builtin.
 const app = require('./app');
 const config = require('./utils/config');
 const logger = require('./utils/logger');
