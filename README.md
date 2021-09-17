@@ -25,4 +25,9 @@ The project is involved in the following exercises:
 ## Playing with continuous integration
 
 My first big mistake was assuming github could connect to the database, when in
-reality it does not have the URI. It is possible to add it in settings. (encrypted)
+reality it does not have the URI. It is possible to add it in settings, under 
+environments.
+
+Jest gave weird errors, so I followed the advice here, which revealed the true
+errors from Mongoose.
+(https://github.com/facebook/jest/issues/11607)
