@@ -31,6 +31,9 @@ blogsRouter.put('/:id', async (request, response) => {
     // Return the new note not the old.
     const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, newBlog, {new: true});
 
+    if (!updatedBlog) // Mongoose did not fail, but nothing found.
+        return response.status(404).send();
+
     response.json(updatedBlog);
 });
 

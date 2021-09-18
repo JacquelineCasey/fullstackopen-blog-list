@@ -141,14 +141,14 @@ describe('DELETE /:id', () => {
 });
 
 describe('PUT /:id', () => {
-    test('changes the blog with the same id, and returns the updated blog', async () => {
-        const newBlog = {
-            title: 'A new blog',
-            author: 'Blogger McBlogface',
-            url: 'http://blog.com',
-            likes: 2000
-        };
+    const newBlog = {
+        title: 'A new blog',
+        author: 'Blogger McBlogface',
+        url: 'http://blog.com',
+        likes: 2000
+    };
 
+    test('changes the blog with the same id, and returns the updated blog', async () => {
         let blogs = await helper.fetchAllBlogs();
         const response = await api.put(`/api/blogs/${blogs[0].id}`)
             .send(newBlog)
@@ -158,6 +158,13 @@ describe('PUT /:id', () => {
         expect(returnedBlog).toMatchObject(newBlog);
         blogs = await helper.fetchAllBlogs();
         expect(returnedBlog).toEqual(blogs.find(b => b.title === returnedBlog.title));
+    });
+
+    test('No such id: returns 404 Not Found', async () => {
+        const fakeId = '000000000000000000000000'; // Fake but valid
+        await api.put(`/api/blogs/${fakeId}`)
+            .send(newBlog)
+            .expect(404);
     });
 });
 
