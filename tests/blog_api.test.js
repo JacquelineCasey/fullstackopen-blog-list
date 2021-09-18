@@ -166,6 +166,13 @@ describe('PUT /:id', () => {
             .send(newBlog)
             .expect(404);
     });
+
+    test('Invalid id format: returns 400 Bad Request', async () => {
+        const fakeId = 'invalid'; // Fake but valid
+        await api.put(`/api/blogs/${fakeId}`)
+            .send(newBlog)
+            .expect(400);
+    });
 });
 
 afterAll(() => {
