@@ -140,6 +140,28 @@ describe('DELETE /:id', () => {
     });
 });
 
+describe('PUT /:id', () => {
+    test('changes the blog with the same id, and returns the updated blog', async () => {
+        const newBlog = {
+            title: 'A new blog',
+            author: 'Blogger McBlogface',
+            url: 'http://blog.com',
+            likes: 2000
+        };
+
+        let blogs = await helper.fetchAllBlogs();
+        const response = await api.post(`/api/blogs/${blogs[0].id}`)
+            .send(newBlog)
+            .expect(200);
+
+        const returnedBlog = response.body;
+
+        expect(returnedBlog).toMatchObject(newBlog);
+        blogs = await helper.fetchAllBlogs();
+        expect(returnedBlog).toEqual(blogs.find(b => b.title === returnedBlog.title));
+    });
+});
+
 afterAll(() => {
     mongoose.connection.close();
 });
