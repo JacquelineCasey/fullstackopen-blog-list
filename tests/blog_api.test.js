@@ -9,6 +9,11 @@ const helper = require('./test_helper');
 
 const api = supertest(app);
 
+beforeAll(async () => {
+    // Ensure connection is fully formed. (Sometimes, 1st test would timeout before)
+    await app.connectionFormed;
+}, 20000);
+
 beforeEach(async () => {
     await Blog.deleteMany({});
 
@@ -137,6 +142,41 @@ describe('DELETE /:id', () => {
 
         const blogs = await helper.fetchAllBlogs();
         expect(blogs).toHaveLength(helper.initialBlogs.length);
+    });
+});
+
+describe('PUT /:id', () => {
+    const newBlog = {
+        title: 'A new blog',
+        author: 'Blogger McBlogface',
+        url: 'http://blog.com',
+        likes: 2000
+    };
+
+    test('changes the blog with the same id, and returns the updated blog', async () => {
+        let blogs = await helper.fetchAllBlogs();
+        const response = await api.put(`/api/blogs/${blogs[0].id}`)
+            .send(newBlog)
+            .expect(200);
+
+        const returnedBlog = response.body;
+        expect(returnedBlog).toMatchObject(newBlog);
+        blogs = await helper.fetchAllBlogs();
+        expect(returnedBlog).toEqual(blogs.find(b => b.title === returnedBlog.title));
+    });
+
+    test('No such id: returns 404 Not Found', async () => {
+        const fakeId = '000000000000000000000000'; // Fake but valid
+        await api.put(`/api/blogs/${fakeId}`)
+            .send(newBlog)
+            .expect(404);
+    });
+
+    test('Invalid id format: returns 400 Bad Request', async () => {
+        const fakeId = 'invalid'; // Fake but valid
+        await api.put(`/api/blogs/${fakeId}`)
+            .send(newBlog)
+            .expect(400);
     });
 });
 

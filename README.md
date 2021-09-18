@@ -22,6 +22,7 @@ The project is involved in the following exercises:
         Make this behavior happen. 
 - 4.12: Write a test that ensures that 400 is sent if either `title` or `url` are missing.
 - 4.13: Add functionality for deleting blog posts. Verify that it works (tests or REST api).
+- 4.14: Add functionality for PUT.
 
 ## Playing with continuous integration
 
