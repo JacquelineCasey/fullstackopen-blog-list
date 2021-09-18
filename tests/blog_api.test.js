@@ -150,12 +150,11 @@ describe('PUT /:id', () => {
         };
 
         let blogs = await helper.fetchAllBlogs();
-        const response = await api.post(`/api/blogs/${blogs[0].id}`)
+        const response = await api.put(`/api/blogs/${blogs[0].id}`)
             .send(newBlog)
             .expect(200);
 
         const returnedBlog = response.body;
-
         expect(returnedBlog).toMatchObject(newBlog);
         blogs = await helper.fetchAllBlogs();
         expect(returnedBlog).toEqual(blogs.find(b => b.title === returnedBlog.title));
