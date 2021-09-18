@@ -21,6 +21,7 @@ The project is involved in the following exercises:
 - 4.11: Write a test that checks that if the likes property is missing, it is set to zero.
         Make this behavior happen. 
 - 4.12: Write a test that ensures that 400 is sent if either `title` or `url` are missing.
+- 4.13: Add functionality for deleting blog posts. Verify that it works (tests or REST api).
 
 ## Playing with continuous integration
 

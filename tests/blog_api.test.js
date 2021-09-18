@@ -29,7 +29,7 @@ describe('GET /', () => {
     });
 
     test('returned notes have "id" property instead of "_id"', async () => {
-        const blogs = await helper.databaseAllBlogs();
+        const blogs = await helper.fetchAllBlogs();
 
         blogs.forEach(blog => {
             expect(blog._id).toBeUndefined();
@@ -77,14 +77,14 @@ describe('POST /', () => {
     test('the database has one more note after', async () => {
         await api.post('/api/blogs').send(blogToSend);
 
-        const blogs = await helper.databaseAllBlogs();
+        const blogs = await helper.fetchAllBlogs();
         expect(blogs.length).toBe(helper.initialBlogs.length + 1);
     });
 
     test('missing likes property is replaced with 0', async () => {
         await api.post('/api/blogs').send(blogToSendNoLikes);
 
-        const blogs = await helper.databaseAllBlogs();
+        const blogs = await helper.fetchAllBlogs();
         expect(blogs.find(b => b.title === blogToSendNoLikes.title))
             .toMatchObject({likes: 0});
     });
@@ -93,7 +93,7 @@ describe('POST /', () => {
         await api.post('/api/blogs').send(blogToSendNoTitle)
             .expect(400);
 
-        const blogs = await helper.databaseAllBlogs();
+        const blogs = await helper.fetchAllBlogs();
         expect(blogs).toHaveLength(helper.initialBlogs.length);
     });
 
@@ -101,11 +101,34 @@ describe('POST /', () => {
         await api.post('/api/blogs').send(blogToSendNoUrl)
             .expect(400);
 
-        const blogs = await helper.databaseAllBlogs();
+        const blogs = await helper.fetchAllBlogs();
         expect(blogs).toHaveLength(helper.initialBlogs.length);
     });
 });
 
+describe('DELETE /:id', () => {
+    test('Returns 200 OK and deletes the note', async () => {
+        let blogs = await helper.fetchAllBlogs();
+        const blog0 = blogs[0];
+
+        await api.delete(`/api/blogs/:${blog0.id}`)
+            .expect(200);
+
+        blogs = await helper.fetchAllBlogs();
+        expect(blogs).toHaveLength(helper.initialBlogs.length - 1);
+        expect(blogs.some(b => b.id === blog0.id)).toBeFalsy();
+    });
+
+    test('No such id: Returns 200 OK and does nothing', async () => {
+        const fakeButValidID = '000000000000000000000000';
+
+        await api.delete(`/api/blogs/:${fakeButValidID}`)
+            .expect(200);
+
+        const blogs = await helper.fetchAllBlogs();
+        expect(blogs).toHaveLength(helper.initialBlogs.length);
+    });
+});
 
 afterAll(() => {
     mongoose.connection.close();
