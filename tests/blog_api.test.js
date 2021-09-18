@@ -128,6 +128,16 @@ describe('DELETE /:id', () => {
         const blogs = await helper.fetchAllBlogs();
         expect(blogs).toHaveLength(helper.initialBlogs.length);
     });
+
+    test('Invalid id format: Returns 400 Bad Request and does nothing', async () => {
+        const invalidID = 'invalid'; // invalid format
+
+        await api.delete(`/api/blogs/${invalidID}`)
+            .expect(400);
+
+        const blogs = await helper.fetchAllBlogs();
+        expect(blogs).toHaveLength(helper.initialBlogs.length);
+    });
 });
 
 afterAll(() => {
