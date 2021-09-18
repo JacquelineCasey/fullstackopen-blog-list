@@ -9,6 +9,11 @@ const helper = require('./test_helper');
 
 const api = supertest(app);
 
+beforeAll(async () => {
+    // Ensure connection is fully formed. (Sometimes, 1st test would timeout before)
+    await app.connectionFormed;
+}, 20000);
+
 beforeEach(async () => {
     await Blog.deleteMany({});
 
