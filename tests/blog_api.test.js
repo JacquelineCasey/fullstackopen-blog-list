@@ -107,23 +107,23 @@ describe('POST /', () => {
 });
 
 describe('DELETE /:id', () => {
-    test('Returns 200 OK and deletes the note', async () => {
+    test('Returns 204 No Content and deletes the note', async () => {
         let blogs = await helper.fetchAllBlogs();
         const blog0 = blogs[0];
 
-        await api.delete(`/api/blogs/:${blog0.id}`)
-            .expect(200);
+        await api.delete(`/api/blogs/${blog0.id}`)
+            .expect(204);
 
         blogs = await helper.fetchAllBlogs();
         expect(blogs).toHaveLength(helper.initialBlogs.length - 1);
         expect(blogs.some(b => b.id === blog0.id)).toBeFalsy();
     });
 
-    test('No such id: Returns 200 OK and does nothing', async () => {
-        const fakeButValidID = '000000000000000000000000';
+    test('No such id: Returns 204 No Content and does nothing', async () => {
+        const fakeButValidID = '000000000000000000000000'; // 24 digits is valid format
 
-        await api.delete(`/api/blogs/:${fakeButValidID}`)
-            .expect(200);
+        await api.delete(`/api/blogs/${fakeButValidID}`)
+            .expect(204);
 
         const blogs = await helper.fetchAllBlogs();
         expect(blogs).toHaveLength(helper.initialBlogs.length);
