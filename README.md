@@ -29,8 +29,13 @@ The project is involved in the following exercises:
         since they receive the password hash.
 - 4.17: Make it so that viewing either users or blogs lets you see some fields of
         both. You can have blogs automatically select a posting user when created.
-
-
+- 4.18: Implement Token based authentication
+- 4.19: Make adding new blogs require a token
+- 4.20: Move token auth to a middleware that puts the found token in `request.token`. 
+  - I actually fused this middleware with the one that comes later.
+- 4.21: Require user auth for deleting, and restrict deleting to a user's own posts.
+- 4.22: Write a middleware, userExtractor. You can use it for just a few routes.
+- 4.23: Fix some tests and write some more.
 
 ## Playing with continuous integration
 
