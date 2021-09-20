@@ -27,8 +27,9 @@ The project is involved in the following exercises:
   - Users have a username, a name, and a password (and implicitly, and id).
 - 4.16: Add restrictions on username, and password. Mongoose validators won't work,
         since they receive the password hash.
+- 4.17: Make it so that viewing either users or blogs lets you see some fields of
+        both. You can have blogs automatically select a posting user when created.
 
-  
 
 
 ## Playing with continuous integration
