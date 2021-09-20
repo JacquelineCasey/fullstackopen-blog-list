@@ -4,6 +4,7 @@ const supertest = require('supertest');
 
 const app = require('../app');
 const Blog = require('../models/blog');
+const User = require('../models/user');
 const helper = require('./test_helper');
 
 
@@ -15,11 +16,15 @@ beforeAll(async () => {
 }, 20000);
 
 beforeEach(async () => {
-    await Blog.deleteMany({});
+    await Promise.all([User.deleteMany({}), Blog.deleteMany({})]);
 
-    await Promise.all(
-        helper.initialBlogs.map(blog => new Blog(blog).save())
+    const users = await Promise.all(
+        helper.initialUsers.map(user => new User(user).save())
     );
+
+    await Promise.all(helper.initialBlogs.map(blog =>
+        new Blog({...blog, user: users[0]._id}).save()
+    ));
 });
 
 
@@ -162,7 +167,9 @@ describe('PUT /api/blogs/:id', () => {
         const returnedBlog = response.body;
         expect(returnedBlog).toMatchObject(newBlog);
         blogs = await helper.fetchAllBlogs();
-        expect(returnedBlog).toEqual(blogs.find(b => b.title === returnedBlog.title));
+
+        const foundBlog = blogs.find(b => b.title === returnedBlog.title);
+        expect(returnedBlog).toEqual(JSON.parse(JSON.stringify(foundBlog))); // Have to convert Mongoose obj to normal obj
     });
 
     test('No such id: returns 404 Not Found', async () => {

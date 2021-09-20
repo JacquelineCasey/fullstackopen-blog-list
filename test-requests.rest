@@ -1,22 +1,29 @@
+### Get all blogs
 GET http://localhost:3003/api/blogs
 
-###
+### Add a blog
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "Some Title",
+    "title": "Super Mario 3",
     "author": "Author McAuthorson",
     "url": "mcauthorson.com",
-    "likes": 42
+    "likes": 14
 }
 
-###
+### Delete a blog
+DELETE http://localhost:3003/api/blogs/61480e72bf9e6e09df2557e4
+
+### Get a user
+GET http://localhost:3003/api/users
+
+### Add a user
 POST http://localhost:3003/api/users
 Content-Type: application/json
 
 {
-    "username": "ab",
-    "password": "abc",
-    "name": "Philbert Smith"
+    "username": "potatoSalad",
+    "password": "mytimeisnow",
+    "name": "John Cena"
 }
