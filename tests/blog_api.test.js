@@ -1,10 +1,12 @@
 
+const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const supertest = require('supertest');
 
 const app = require('../app');
 const Blog = require('../models/blog');
 const User = require('../models/user');
+const config = require('../utils/config');
 const helper = require('./test_helper');
 
 
@@ -15,11 +17,18 @@ beforeAll(async () => {
     await app.connectToDatabase();
 }, 20000);
 
+let user0token;
 beforeEach(async () => {
     await Promise.all([User.deleteMany({}), Blog.deleteMany({})]);
 
     const users = await Promise.all(
         helper.initialUsers.map(user => new User(user).save())
+    );
+
+    user0token = jwt.sign(
+        {username: users[0].username, id: users[0]._id},
+        config.SECRET,
+        {expiresIn: 60*60}
     );
 
     await Promise.all(helper.initialBlogs.map(blog =>
@@ -75,8 +84,8 @@ describe('POST /api/blogs/', () => {
     };
 
     test('the database returns the sent note as JSON', async () => {
-        const response = await api
-            .post('/api/blogs')
+        const response = await api.post('/api/blogs')
+            .set('Authorization', `bearer ${user0token}`)
             .send(blogToSend)
             .expect(201)
             .expect('Content-Type', /application\/json/);
@@ -85,14 +94,18 @@ describe('POST /api/blogs/', () => {
     });
 
     test('the database has one more note after', async () => {
-        await api.post('/api/blogs').send(blogToSend);
+        await api.post('/api/blogs')
+            .set('Authorization', `bearer ${user0token}`)
+            .send(blogToSend);
 
         const blogs = await helper.fetchAllBlogs();
         expect(blogs.length).toBe(helper.initialBlogs.length + 1);
     });
 
     test('missing likes property is replaced with 0', async () => {
-        await api.post('/api/blogs').send(blogToSendNoLikes);
+        await api.post('/api/blogs')
+            .set('Authorization', `bearer ${user0token}`)
+            .send(blogToSendNoLikes);
 
         const blogs = await helper.fetchAllBlogs();
         expect(blogs.find(b => b.title === blogToSendNoLikes.title))
@@ -100,7 +113,9 @@ describe('POST /api/blogs/', () => {
     });
 
     test('missing title property causes 400 error code', async () => {
-        await api.post('/api/blogs').send(blogToSendNoTitle)
+        await api.post('/api/blogs')
+            .set('Authorization', `bearer ${user0token}`)
+            .send(blogToSendNoTitle)
             .expect(400);
 
         const blogs = await helper.fetchAllBlogs();
@@ -108,8 +123,19 @@ describe('POST /api/blogs/', () => {
     });
 
     test('missing url property causes 400 error code', async () => {
-        await api.post('/api/blogs').send(blogToSendNoUrl)
+        await api.post('/api/blogs')
+            .set('Authorization', `bearer ${user0token}`)
+            .send(blogToSendNoUrl)
             .expect(400);
+
+        const blogs = await helper.fetchAllBlogs();
+        expect(blogs).toHaveLength(helper.initialBlogs.length);
+    });
+
+    test('No authorization causes an error code (no database change)', async () => {
+        await api.post('/api/blogs')
+            .send(blogToSend)
+            .expect(401);
 
         const blogs = await helper.fetchAllBlogs();
         expect(blogs).toHaveLength(helper.initialBlogs.length);
