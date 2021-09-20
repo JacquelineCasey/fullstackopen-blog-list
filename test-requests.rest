@@ -27,3 +27,12 @@ Content-Type: application/json
     "password": "mytimeisnow",
     "name": "John Cena"
 }
+
+### Login
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+    "username": "potatoSalad",
+    "password": "mytimeisnow"
+}

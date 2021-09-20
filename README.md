@@ -29,6 +29,9 @@ The project is involved in the following exercises:
         since they receive the password hash.
 - 4.17: Make it so that viewing either users or blogs lets you see some fields of
         both. You can have blogs automatically select a posting user when created.
+- 4.18: Implement Token based authentication
+- 4.19: Make adding new blogs require a token
+- 4.20: Move token auth to a middleware that puts the found token in `request.token`. 
 
 
 
