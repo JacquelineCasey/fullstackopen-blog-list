@@ -19,6 +19,9 @@ const errorHandler = (error, request, response, next) => {
     if (error.name === 'PasswordValidationError')
         return response.status(400).send({error: error.message});
 
+    if (error.name === 'NotFoundError')
+        return response.status(404).end();
+
     if (error.name === 'AuthenticationError')
         return response.status(401).send({error: error.message});
 

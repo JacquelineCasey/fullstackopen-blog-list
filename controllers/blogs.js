@@ -2,7 +2,6 @@
 const blogsRouter = require('express').Router();
 
 const Blog = require('../models/blog');
-const User = require('../models/user');
 const middleware = require('../utils/middleware');
 
 
@@ -28,14 +27,18 @@ blogsRouter.post('/', middleware.userExtractor, async (request, response) => {
     response.status(201).json(result);
 });
 
-blogsRouter.delete('/:id', async (request, response) => {
-    const removed_blog = await Blog.findByIdAndDelete(request.params.id);
+blogsRouter.delete('/:id', middleware.userExtractor, async (request, response, next) => {
+    const found_blog = await Blog.findById(request.params.id);
+    const user = request.user;
 
-    if (removed_blog) {
-        const user = await User.findById(removed_blog.user._id);
-        user.blogs = user.blogs.filter(blogId => blogId.toString() !== removed_blog.id.toString()); // Have to compare them as strings
-        await user.save();
-    }
+    if (!found_blog)
+        return next({name: 'NotFoundError', message: 'Could not find that post'});
+    if (found_blog.user.toString() !== user._id.toString()) // Objects must be cast to string
+        return next({name: 'AuthenticationError', message: 'User does not own this post'});
+
+    await found_blog.delete();
+    user.blogs = user.blogs.filter(blogId => blogId.toString() !== found_blog.id.toString()); // Have to compare them as strings
+    await user.save();
 
     response.status(204).end();
 });
