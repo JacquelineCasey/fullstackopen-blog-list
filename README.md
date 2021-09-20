@@ -32,6 +32,7 @@ The project is involved in the following exercises:
 - 4.18: Implement Token based authentication
 - 4.19: Make adding new blogs require a token
 - 4.20: Move token auth to a middleware that puts the found token in `request.token`. 
+    - I actually fused this middleware with the one that comes later.
 
 
 

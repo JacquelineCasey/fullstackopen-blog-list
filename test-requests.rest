@@ -4,9 +4,10 @@ GET http://localhost:3003/api/blogs
 ### Add a blog
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBvdGF0b1NhbGFkIiwiaWQiOiI2MTQ4MGU2MWJmOWU2ZTA5ZGYyNTU3ZDkiLCJpYXQiOjE2MzIxNjkxMTUsImV4cCI6MTYzMjE3MjcxNX0.pvOy0kDceuBTTU69ZXZhTKHgOcYWLVZlzDCmLRXVku8
 
 {
-    "title": "Super Mario 3",
+    "title": "Authorized Blog",
     "author": "Author McAuthorson",
     "url": "mcauthorson.com",
     "likes": 14
@@ -15,7 +16,7 @@ Content-Type: application/json
 ### Delete a blog
 DELETE http://localhost:3003/api/blogs/61480e72bf9e6e09df2557e4
 
-### Get a user
+### Get users
 GET http://localhost:3003/api/users
 
 ### Add a user
