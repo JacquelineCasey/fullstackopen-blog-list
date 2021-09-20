@@ -10,3 +10,13 @@ Content-Type: application/json
     "url": "mcauthorson.com",
     "likes": 42
 }
+
+###
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+    "username": "abcd",
+    "password": "secretPass",
+    "name": "Philbert Smith"
+}

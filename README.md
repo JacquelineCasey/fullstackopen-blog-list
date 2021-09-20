@@ -23,7 +23,8 @@ The project is involved in the following exercises:
 - 4.12: Write a test that ensures that 400 is sent if either `title` or `url` are missing.
 - 4.13: Add functionality for deleting blog posts. Verify that it works (tests or REST api).
 - 4.14: Add functionality for PUT.
-
+- 4.14: Add users, and the ability to add them via `POST api/users`
+  - Users have a username, a name, and a password (and implicitly, and id).
 ## Playing with continuous integration
 
 My first big mistake was assuming github could connect to the database, when in
