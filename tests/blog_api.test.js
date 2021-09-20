@@ -11,7 +11,7 @@ const api = supertest(app);
 
 beforeAll(async () => {
     // Ensure connection is fully formed. (Sometimes, 1st test would timeout before)
-    await app.connectionFormed;
+    await app.connectToDatabase();
 }, 20000);
 
 beforeEach(async () => {

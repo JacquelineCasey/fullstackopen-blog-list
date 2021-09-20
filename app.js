@@ -13,16 +13,13 @@ const middleware = require('./utils/middleware');
 
 const app = express();
 
-/* app.connectionFormed can be awaited (eg by tests) to ensure that the
- * connection is formed. This is not neccessary to do before queueing Mongoose
- *requests. */
-app.connectionFormed = mongoose.connect(config.MONGODB_URI)
-    .then(() => {
+app.connectToDatabase = async () => {
+    try {
+        await mongoose.connect(config.MONGODB_URI);
         logger.info('connected to MongoDB');
-    })
-    .catch(error => {
-        logger.error('error connecting to MongoDB:', error.message);
-    });
+    }
+    catch (error) { logger.error('error connecting to MongoDB:', error.message); }
+};
 
 
 app.use(cors());

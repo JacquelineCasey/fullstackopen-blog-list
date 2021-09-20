@@ -11,7 +11,7 @@ const helper = require('./test_helper');
 const api = supertest(app);
 
 beforeAll(async () => {
-    await app.connection;
+    await app.connectToDatabase();
 }, 20000);
 
 beforeEach(async () => {
