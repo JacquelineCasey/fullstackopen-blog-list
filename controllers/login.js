@@ -13,7 +13,7 @@ loginRouter.post('/', async (request, response) => {
     const user = await User.findOne({username: body.username});
 
     if (!user || !bcrypt.compare(body.password, user.passwordHash))
-        throw {name: 'AuthenticationError'};
+        throw {name: 'AuthenticationError', message: 'invalid username or password'};
 
     const token = jwt.sign(
         {username: user.username, id: user._id},
