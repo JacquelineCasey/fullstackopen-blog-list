@@ -28,6 +28,8 @@ The project is involved in the following exercises:
 - 4.16: Add restrictions on username, and password. Mongoose validators won't work,
         since they receive the password hash.
 
+  
+
 
 ## Playing with continuous integration
 
