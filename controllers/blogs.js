@@ -29,9 +29,11 @@ blogsRouter.post('/', async (request, response) => {
 blogsRouter.delete('/:id', async (request, response) => {
     const removed_blog = await Blog.findByIdAndDelete(request.params.id);
 
-    const user = await User.findById(removed_blog.user._id);
-    user.blogs = user.blogs.filter(blogId => blogId.toString() !== removed_blog.id.toString()); // Have to compare them as strings
-    await user.save();
+    if (removed_blog) {
+        const user = await User.findById(removed_blog.user._id);
+        user.blogs = user.blogs.filter(blogId => blogId.toString() !== removed_blog.id.toString()); // Have to compare them as strings
+        await user.save();
+    }
 
     response.status(204).end();
 });
