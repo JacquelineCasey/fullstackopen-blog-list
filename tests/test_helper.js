@@ -2,6 +2,19 @@
 const Blog = require('../models/blog');
 
 
+const initialUsers = [
+    {
+        username: 'xXxEpicBloggerxXx',
+        name: 'John Doe',
+        password: 'password1234'
+    },
+    {
+        username: 'generic-blogger',
+        name: 'James Smith',
+        password: 'aSomewhatBetterPassword'
+    }
+];
+
 const initialBlogs = [
     {
         title: 'React patterns',
@@ -49,5 +62,6 @@ const fetchAllBlogs = async () => {
 
 module.exports = {
     fetchAllBlogs,
-    initialBlogs
+    initialBlogs,
+    initialUsers
 };

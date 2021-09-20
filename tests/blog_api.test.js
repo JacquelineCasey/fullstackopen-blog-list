@@ -11,7 +11,7 @@ const api = supertest(app);
 
 beforeAll(async () => {
     // Ensure connection is fully formed. (Sometimes, 1st test would timeout before)
-    await app.connectionFormed;
+    await app.connectToDatabase();
 }, 20000);
 
 beforeEach(async () => {
@@ -23,7 +23,7 @@ beforeEach(async () => {
 });
 
 
-describe('GET /', () => {
+describe('GET /api/blogs/', () => {
     test('all notes are returned as json with 200', async () => {
         const response = await api
             .get('/api/blogs')
@@ -43,7 +43,7 @@ describe('GET /', () => {
     });
 });
 
-describe('POST /', () => {
+describe('POST /api/blogs/', () => {
     const blogToSend = {
         title: 'new blog title',
         author: 'new blog author',
@@ -111,7 +111,7 @@ describe('POST /', () => {
     });
 });
 
-describe('DELETE /:id', () => {
+describe('DELETE /api/blogs/:id', () => {
     test('Returns 204 No Content and deletes the note', async () => {
         let blogs = await helper.fetchAllBlogs();
         const blog0 = blogs[0];
@@ -145,7 +145,7 @@ describe('DELETE /:id', () => {
     });
 });
 
-describe('PUT /:id', () => {
+describe('PUT /api/blogs/:id', () => {
     const newBlog = {
         title: 'A new blog',
         author: 'Blogger McBlogface',

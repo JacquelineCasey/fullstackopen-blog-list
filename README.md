@@ -23,6 +23,11 @@ The project is involved in the following exercises:
 - 4.12: Write a test that ensures that 400 is sent if either `title` or `url` are missing.
 - 4.13: Add functionality for deleting blog posts. Verify that it works (tests or REST api).
 - 4.14: Add functionality for PUT.
+- 4.15: Add users, and the ability to add them via `POST api/users`
+  - Users have a username, a name, and a password (and implicitly, and id).
+- 4.16: Add restrictions on username, and password. Mongoose validators won't work,
+        since they receive the password hash.
+
 
 ## Playing with continuous integration
 
